@@ -1,24 +1,29 @@
 import React, { Component } from 'react'
-import { Route, Switch } from 'react-router'
-import { Layout } from './components/Layout'
-import { Home } from './pages/Home'
-import HelloWorld from './pages/_template/HelloWorld'
-import HeyWorld from './pages/_template/HeyWorld'
-import NotFound from './pages/NotFound'
-import './custom.scss'
-export default class App extends Component {
-  static displayName = App.name
+import { Nav } from './components/Nav.jsx'
+import { QuestionList } from './pages/QuestionList.jsx'
+import { AskQuestion } from './pages/AskQuestion.jsx'
+import { Link, Switch, Route } from 'react-router-dom'
+import { Review } from './pages/Review.jsx'
 
-  render() {
-    return (
-      <Layout>
+import './custom.scss'
+
+export function App() {
+  return (
+    <div>
+      <Nav />
+      <main className="container-fluid p-4">
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/counter" component={HelloWorld} />
-          <Route exact path="/typescript" component={HeyWorld} />
-          <Route exact path="*" component={NotFound} />
+          <Route exact path="/">
+            <QuestionList />
+          </Route>
+          <Route path="/question/:id/review">
+            <Review />
+          </Route>
+          <Route exact path="/question/:id">
+            <AskQuestion />
+          </Route>
         </Switch>
-      </Layout>
-    )
-  }
+      </main>
+    </div>
+  )
 }
