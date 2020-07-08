@@ -32,14 +32,18 @@ function SingleQuestionForList(props) {
   )
 }
 
-export function QuestionList() {
+export function QuestionList(props) {
   const [questions, setQuestions] = useState([])
 
   useEffect(() => {
-    fetch('/api/Questions')
+    const url =
+      props.activeFilter.length === 0
+        ? `/api/Questions`
+        : `/api/Questions?filter=${props.activeFilter}`
+    fetch(url)
       .then(response => response.json())
       .then(apiData => setQuestions(apiData))
-  }, [])
+  }, [props.activeFilter])
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import { Nav } from './components/Nav.jsx'
 import { QuestionList } from './pages/QuestionList.jsx'
 import { AskQuestion } from './pages/AskQuestion.jsx'
@@ -8,13 +8,16 @@ import { Review } from './pages/Review.jsx'
 import './custom.scss'
 
 export function App() {
+  const [activeFilter, setActiveFilter] = useState('')
+
+  console.log(activeFilter)
   return (
     <div>
-      <Nav />
+      <Nav activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
       <main className="container-fluid p-4">
         <Switch>
           <Route exact path="/">
-            <QuestionList />
+            <QuestionList activeFilter={activeFilter} />
           </Route>
           <Route path="/question/:id/review">
             <Review />

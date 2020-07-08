@@ -31,11 +31,18 @@ namespace SuncoastOverflow.Controllers
         // Returns a list of all your Questions
         //
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Question>>> GetQuestions()
+        public async Task<ActionResult<IEnumerable<Question>>> GetQuestions(string filter)
         {
-            // Uses the database context in `_context` to request all of the Questions and
-            // return them as a JSON array.
-            return await _context.Questions.ToListAsync();
+            if (filter == null)
+            {
+                return await _context.Questions.ToListAsync();
+
+            }
+            else
+            {
+                return await _context.Questions.Where(question => question.Tag.Contains(filter)).ToListAsync();
+            }
+
         }
 
         // GET: api/Questionss/5

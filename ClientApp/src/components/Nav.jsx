@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-export function Nav() {
+export function Nav(props) {
+  const [filterText, setFilterText] = useState('')
+
+  const handleClickSearch = event => {
+    props.setActiveFilter(filterText)
+    event.preventDefault()
+  }
   return (
     <nav className="navbar navbar-expand navbar-light">
       <Link className="navbar-brand" to="/">
@@ -26,10 +32,12 @@ export function Nav() {
             type="search"
             placeholder="Search"
             aria-label="Search"
+            value={filterText}
+            onChange={event => setFilterText(event.target.value)}
           />
           <button
             className="btn btn-outline-success my-2 my-sm-0"
-            type="submit"
+            onClick={handleClickSearch}
           >
             Search
           </button>
